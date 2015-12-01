@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <title>Project three: Canvas Animation</title>
+  
+  
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+	  @-webkit-keyframes spinnerRotate
+{
+    from{-webkit-transform:rotate(0deg);}
+    to{-webkit-transform:rotate(360deg);}
+}
+@-moz-keyframes spinnerRotate
+{
+    from{-moz-transform:rotate(0deg);}
+    to{-moz-transform:rotate(360deg);}
+}
+@-ms-keyframes spinnerRotate
+{
+    from{-ms-transform:rotate(0deg);}
+    to{-ms-transform:rotate(360deg);}
+}
+#myCanvas{
+    top:2%;
+    left:0%;
+    -webkit-animation-name: spinnerRotate;
+    -webkit-animation-duration: 5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spinnerRotate;
+    -moz-animation-duration: 5s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spinnerRotate;
+    -ms-animation-duration: 5s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+}
+.in-box {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px;
+    width: 49%;
+	
+	
+}
+    </style>
+  </head>
+  <body>
+  	<div class="in-box"><canvas id="myCanvas" width="650" height="400"></canvas></div>
+    <div class="in-box"><canvas id="myCanvas2" width="650" height="300"></canvas></div>
+    
+	
+	<script>
+	
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+      var x = canvas.width / 2;
+      var y = canvas.height / 2;
+      var radius = 150;
+      var offset = 150;
+	 
+      context.shadowColor = '#000000';
+      context.shadowBlur = 20;
+      context.shadowOffsetX = 5;
+      context.shadowOffsetY = 5;
+	  
+      context.font = '35pt Ariel';
+      context.fillStyle = '#FF4500';
+      context.fillText('Hello!', 270, 40);
+	   
+      context.fillStyle = 'blue';
+      context.fillRect(rectWidth / -2, rectHeight / -2, rectWidth, rectHeight);
+	  
+      context.save();
+      context.beginPath();
+      context.arc(x, y, radius, 0, 2 * Math.PI, false);
+      context.clip();
+      context.fillStyle = '#FF7F50';
+      context.fill();
+
+      context.beginPath();
+      context.arc(x - offset, y - offset, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'blue';
+      context.fill();
+
+      context.beginPath();
+      context.arc(x + offset, y - offset, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'yellow';
+      context.fill();
+
+      context.beginPath();
+      context.arc(x- offset, y + offset, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = 'red';
+      context.fill();
+	  
+      context.beginPath();
+      context.arc(x + offset, y + offset, radius, 0, 2 * Math.PI, false);
+      context.fillStyle = '#32CD32';
+      context.fill();
+	  
+      context.restore();
+      context.beginPath();
+      context.arc(x, y, radius, 0, 2 * Math.PI, false);
+      context.lineWidth = 10;
+      context.strokeStyle = '#D2691E';
+      context.stroke();
+	 	  
+      var centerX = 0;
+      var centerY = 0;
+      var radius = 8;
+     
+      context.save();
+      context.translate(canvas.width / 2, canvas.height / 2);
+      context.scale(4, 2);
+      context.beginPath();
+      context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+      context.restore();
+      context.fillStyle = '#FFFFFF';
+      context.fill();
+      context.lineWidth = 4;
+      context.strokeStyle = 'black';
+      context.stroke(); 
+	  
+      var x = canvas.width / 2;
+      var y = canvas.height / 2;
+      var radius = 180;
+      var startAngle = 2.2 * Math.PI;
+      var endAngle = .8 * Math.PI;
+      var counterClockwise = false;
+
+      context.beginPath();
+      context.arc(x, y, radius, startAngle, endAngle, counterClockwise);
+      context.lineWidth = 5;
+      context.strokeStyle = '#B22222';
+      context.stroke();
+		 
+      var rectWidth = 650;
+      var rectHeight = 400;
+      // translate context to center of canvas
+      context.translate(canvas.width / 2, canvas.height / 2);
+      // rotate 45 degrees clockwise
+      context.rotate(Math.PI / 4);
+      
+	  	 
+    </script>
+   
+    <script>
+   
+      function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+
+        for(var n = 0; n < words.length; n++) {
+          var testLine = line + words[n] + ' ';
+          var metrics = context.measureText(testLine);
+          var testWidth = metrics.width;
+          if (testWidth > maxWidth && n > 0) {
+            context.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+          }
+          else {
+            line = testLine;
+          }
+        }
+        context.fillText(line, x, y);
+      }
+      
+      var canvas = document.getElementById('myCanvas2');
+      var context = canvas.getContext('2d');
+      var maxWidth = 600;
+      var lineHeight = 25;
+      var x = (canvas.width - maxWidth) / 2;
+      var y = 60;
+      var text = 'Lorem ipsum dolor sit amet, constituto definitionem usu no. Tale mollis minimum cu his. Vix an unum commodo, dolore omittantur mediocritatem ut eam. Pri ex facilis omittam, veniam suscipiantur vix ne. Iudicabit maluisset duo ei, dicat consequat in quo, nam ut facilisi dissentiunt. Nihil audire moderatius ei eos, ius ei quem lucilius lobortis.';
+      var ctx = canvas.getContext('2d');
+      ctx.shadowColor = "rgb(190, 190, 190)";
+      ctx.shadowOffsetX = 10;
+      ctx.shadowOffsetY = 10
+      ctx.shadowBlur = 10;
+      var gradient = ctx.createLinearGradient(0, 0, 150, 100);
+      gradient.addColorStop(0, "rgb(255, 0, 128)");
+      gradient.addColorStop(1, "rgb(255, 153, 51)");
+      ctx.fillStyle = gradient;
+	  context.font = '16pt Ariel';
+      context.fillStyle = gradient;
+
+      wrapText(context, text, x, y, maxWidth, lineHeight);
+	  
+	 
+    </script>
+
+	<body>
+	<canvas id="canvas" width="900" height="100"></canvas>
+	</body>
+	
+  </body>
+</html>      
